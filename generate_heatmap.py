@@ -49,7 +49,7 @@ def build_svg(status_by_date, start_date, end_date=None):
                 y = weekday * (cell + gap)
                 svg.append(
                     f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" '
-                    f'rx="2" fill="{color}"><title>{current} · {label}</title></rect>'
+                    f'rx="3" fill="{color}"><title>{current} · {label}</title></rect>'
                 )
             current += timedelta(days=1)
 
@@ -72,9 +72,32 @@ if __name__ == "__main__":
 
     html = f"""<!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><title>study heatmap</title></head>
-<body style="background:#1e1e1e; padding:24px; margin:0;">
+<head>
+<meta charset="utf-8">
+<title>study heatmap</title>
+<style>
+  html, body {{
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  }}
+  .card {{
+    background: transparent;
+    border: 1.5px solid #c4bee2;
+    border-radius: 16px;
+    padding: 20px 24px;
+  }}
+</style>
+</head>
+<body>
+<div class="card">
 {svg_code}
+</div>
 </body>
 </html>"""
 
