@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>study log</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  }
+  .card {
+    width: 100%;
+    max-width: 760px;
+    background: #ffffff;
+    border: 1.5px solid #c4bee2;
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-sizing: border-box;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6c5a72;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+  .header .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #9986b3;
+  }
+  .row {
+    padding: 7px 0;
+    border-bottom: 1px solid #ece8f2;
+    font-size: 13px;
+  }
+  .row:last-child {
+    border-bottom: none;
+  }
+  .row-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;   /* 자식이 넘칠 때 title이 줄임표로 잘리도록 허용 */
+  }
+  .row .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .row .date {
+    color: #a39cae;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    width: 38px;
+    flex-shrink: 0;
+  }
+  .row .title {
+    color: #3a3441;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .row-bottom {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    padding-left: 16px;
+    margin-top: 2px;
+  }
+  .status-badge {
+    font-weight: 600;
+  }
+  .change-note {
+    color: #b3abbf;
+  }
+  .log-list {
+    max-height: 252px;   /* 대략 7행 높이 */
+    overflow-y: auto;
+  }
+  .log-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  .log-list::-webkit-scrollbar-thumb {
+    background: #d9d1e8;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header"><span class="dot"></span>학습 로그 정리 현황</div>
+  <div class="log-list">
+  
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#9986b3"></span>
+            <span class="date">08.05</span>
+            <span class="title">22일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#9986b3">진행 중</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#9986b3"></span>
+            <span class="date">08.04</span>
+            <span class="title">21일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#9986b3">진행 중</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#6c5a72"></span>
+            <span class="date">08.03</span>
+            <span class="title">20일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#6c5a72">완료</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#c4bee2"></span>
+            <span class="date">07.24</span>
+            <span class="title">19일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#c4bee2">시작 전</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#c4bee2"></span>
+            <span class="date">07.23</span>
+            <span class="title">18일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#c4bee2">시작 전</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#6c5a72"></span>
+            <span class="date">07.22</span>
+            <span class="title">17일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#6c5a72">완료</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#c4bee2"></span>
+            <span class="date">07.21</span>
+            <span class="title">16일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#c4bee2">시작 전</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#c4bee2"></span>
+            <span class="date">07.20</span>
+            <span class="title">15일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#c4bee2">시작 전</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#c4bee2"></span>
+            <span class="date">07.16</span>
+            <span class="title">14일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#c4bee2">시작 전</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="dot" style="background:#c4bee2"></span>
+            <span class="date">07.15</span>
+            <span class="title">13일차</span>
+          </div>
+          <div class="row-bottom">
+            <span class="status-badge" style="color:#c4bee2">시작 전</span>
+            <span class="change-note">08.06 수정</span>
+          </div>
+        </div>
+  </div>
+</div>
+</body>
+</html>
