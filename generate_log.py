@@ -23,23 +23,30 @@ def extract_status(page):
     return status_prop["name"]
 
 
-def extract_last_edited(page):
-    """노션이 자동으로 기록하는 '마지막 수정 시각'(UTC)을
-    한국 시간(UTC+9) 기준 날짜 문자열로 변환."""
+def kst_date(utc_str):
+    """노션이 주는 UTC 시각 문자열을 한국 시간 기준 날짜로 변환."""
     from datetime import datetime, timedelta
-    utc_str = page["last_edited_time"]  # 예: '2026-08-05T09:12:00.000Z'
     utc_dt = datetime.fromisoformat(utc_str.replace("Z", "+00:00"))
-    kst_dt = utc_dt + timedelta(hours=9)
-    return kst_dt.strftime("%Y-%m-%d")
+    return (utc_dt + timedelta(hours=9)).strftime("%Y-%m-%d")
+
+
+def extract_created(page):
+    """페이지가 실제로 만들어진 날 (노션 자동 기록)."""
+    return kst_date(page["created_time"])
+
+
+def extract_last_edited(page):
+    """마지막으로 수정한 날 (노션 자동 기록)."""
+    return kst_date(page["last_edited_time"])
 
 
 def build_rows(entries):
-    """entries: [(date, title, status, status_date), ...] 최신순 정렬된 리스트"""
+    """entries: [(수업일, 제목, 상태, 발행일, 수정일), ...] 최신순 정렬"""
     rows = []
-    for d, title, status, status_date in entries:
+    for d, title, status, created, edited in entries:
         dot_color = STATUS_DOT.get(status, "#555")
         status_label = status or "미정"
-        change_note = f"{status_date[5:].replace('-', '.')} 수정" if status_date else None
+        short = lambda s: s[5:].replace("-", ".")
         rows.append(f"""
         <div class="row">
           <div class="row-top">
@@ -49,7 +56,10 @@ def build_rows(entries):
           </div>
           <div class="row-bottom">
             <span class="status-badge" style="color:{dot_color}">{status_label}</span>
-            {f'<span class="change-note">{change_note}</span>' if change_note else ''}
+            <span class="dates">
+              <span class="date-item">발행 {short(created)}</span>
+              {f'<span class="date-item">수정 {short(edited)}</span>' if edited != created else ''}
+            </span>
           </div>
         </div>""")
     return "\n".join(rows)
@@ -63,7 +73,13 @@ if __name__ == "__main__":
         d = extract_date(p)
         if d is None:
             continue
-        entries.append((d, extract_title(p), extract_status(p), extract_last_edited(p)))
+        entries.append((
+            d,
+            extract_title(p),
+            extract_status(p),
+            extract_created(p),
+            extract_last_edited(p),
+        ))
 
     entries.sort(key=lambda x: x[0], reverse=True)  # 최신 날짜가 위로
 
@@ -143,6 +159,7 @@ if __name__ == "__main__":
   .row-bottom {{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 6px;
     font-size: 11.5px;
     padding-left: 16px;
@@ -151,8 +168,11 @@ if __name__ == "__main__":
   .status-badge {{
     font-weight: 600;
   }}
-  .change-note {{
+  .dates {{
+    display: flex;
+    gap: 8px;
     color: #b3abbf;
+    font-family: "SFMono-Regular", Consolas, monospace;
   }}
   .log-list {{
     max-height: 252px;   /* 대략 7행 높이 */
