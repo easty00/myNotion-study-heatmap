@@ -102,6 +102,7 @@ if __name__ == "__main__":
   .card {{
     width: 100%;
     max-width: 760px;
+    min-width: 0;
     background: #ffffff;
     border: 1.5px solid #c4bee2;
     border-radius: 16px;
