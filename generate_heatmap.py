@@ -58,7 +58,7 @@ def build_svg(status_by_date, start_date, end_date=None):
 
 
 if __name__ == "__main__":
-    START_DATE = date(2026, 6, 1)  # 강의 시작일
+    START_DATE = date(2026, 10, 1)  # 강의 시작 달
 
     pages = fetch_all_pages()
 
