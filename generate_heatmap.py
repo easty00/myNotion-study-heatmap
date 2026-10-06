@@ -33,10 +33,19 @@ def build_svg(status_by_date, start_date, end_date=None):
 
     cell = 12   # 칸 크기(px)
     gap = 3     # 칸 사이 간격(px)
-    width = weeks * (cell + gap)
-    height = 7 * (cell + gap)
+    left = 26   # 왼쪽 여백(px): 요일 글자 자리
+    top = 18    # 위쪽 여백(px): 월 글자 자리
+    width = left + weeks * (cell + gap)
+    height = top + 7 * (cell + gap)
 
     svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">']
+
+    WEEKDAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"]
+    for weekday in (1, 3, 5):   # 월·수·금만 표시 (깃허브처럼 듬성듬성)
+        y = top + weekday * (cell + gap) + cell - 2
+        svg.append(
+            f'<text x="0" y="{y}" font-size="9" fill="#a39cae">{WEEKDAY_LABELS[weekday]}</text>'
+        )
 
     current = aligned_start
     for week in range(weeks):
@@ -45,8 +54,8 @@ def build_svg(status_by_date, start_date, end_date=None):
                 status = status_by_date.get(current)
                 color = STATUS_COLOR[status]
                 label = status if status else "기록 없음"
-                x = week * (cell + gap)
-                y = weekday * (cell + gap)
+                x = left + week * (cell + gap)
+                y = top + weekday * (cell + gap)
                 svg.append(
                     f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" '
                     f'rx="3" fill="{color}"><title>{current} · {label}</title></rect>'
