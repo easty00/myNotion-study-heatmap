@@ -94,6 +94,8 @@ if __name__ == "__main__":
   html, body {{
     margin: 0;
     padding: 0;
+    width: 100%;
+    min-width: 0;        /* body도 flex 아이템이라 내용물보다 작게 줄어들 수 있어야 함 */
     background: transparent;
     display: flex;
     justify-content: center;
